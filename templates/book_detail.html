@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Book Details
+{% endblock title %}
+
+{% block content %}
+<style>
+/* Centering the content */
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Book details container */
+.book-details-container {
+    text-align: center;
+    max-width: 600px; /* Adjust width as needed */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+<div class="content-wrapper">
+    <div class="book-details-container">
+        <h1>Name: {{ book.title }}</h1>
+        <img src="{{ book.image.url }}" alt="Book Image" height="200px"><br><br>
+        <h4>Description: {{ book.description }}</h4>
+        <h4>Price: {{ book.price }}</h4>
+        <h4>Pages: {{ book.page }}</h4>
+        <a href="{% url 'books:book_delete' book.pk %}" class="delete-link">Delete</a>
+        <h2>Reviews</h2>
+        <a href="{% url 'books:add_review' book.pk %}" class="add-review-link">Add Review</a><br><br>
+        <a href="{% url 'books:update' book.pk %}" class="add-review-link">update</a>
+        {% for review in reviews %}
+            <h4>{{ review.user.username }} | {{ review.star_given }}</h4>
+            <p>{{ review.comment }}</p><hr>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Confirmation
+{% endblock title %}
+
+{% block content %}
+<style>
+/* Delete confirmation styles */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.confirmation-message {
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #dc3545; /* Red color for delete button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #c82333; /* Darker shade of red on hover */
+}
+
+.no-link {
+    display: block;
+    margin-top: 10px;
+    color: #007bff; /* Blue color for "No" link */
+    text-decoration: none;
+}
+
+.no-link:hover {
+    text-decoration: underline; /* Underline link on hover */
+}
+</style>
+
+<div class="container">
+    <p class="confirmation-message">Are you sure you want to delete "{{ object }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm">
+    </form>
+    <a href="{% url 'books:book_detail' object.pk  %}" class="no-link">No</a>
+</div>
+{% endblock content %}

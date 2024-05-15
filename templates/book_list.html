@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Book List
+{% endblock title %}
+
+{% block content %}
+<style>
+/* Books page styles */
+.books-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Books heading */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Add Book button */
+.add-book-link {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.add-book-link:hover {
+    background-color: #0056b3;
+}
+
+/* Book links */
+.book-link {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.book-link:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="books-container">
+    <h1>Books Page</h1>
+    <a href="{% url 'books:book_create'%}" class="add-book-link">Add Book</a>
+    <hr>
+    {% for b in book %}
+        <a href="{% url 'books:book_detail' b.pk %}" class="book-link">{{ b.title }}</a>
+    {% endfor %}
+</div>
+{% endblock content %}
