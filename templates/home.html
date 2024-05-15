@@ -104,15 +104,16 @@ a:hover {
 
 </style>
 {% block content %}
-         <div class="container">
-        <h1>Home Page</h1>
-        <button><a href="{% url 'books:book_list' %}">Books</a></button>
+  <div class="container">
+    <h1>Home Page</h1>
+    <button><a href="{% url 'books:book_list' %}">Books</a></button>
+    {% if not request.user.is_authenticated %}
         <button><a href="{% url 'users:register' %}">Register</a></button>
-        {% if request.user.is_authenticated %}
-            <button><a href="{% url 'users:logout' %}">Logout</a></button>
-        {% else  %}
-            <button><a href="{% url 'users:login' %}">Login</a></button>
-        {% endif %}
-    </div>
+        <button><a href="{% url 'users:login' %}">Login</a></button>
+    {% else %}
+        <button><a href="{% url 'users:logout' %}">Logout</a></button>
+    {% endif %}
+</div>
+
 
 {% endblock content %}

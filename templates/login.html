@@ -58,7 +58,7 @@ a:hover {
 
 <div class="container">
     <h1>Login to your account or <a href="{% url 'users:register' %}">create new</a></h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
         {{ form.as_p }}

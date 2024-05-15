@@ -10,7 +10,6 @@ from .forms import BookForm
 from django.contrib import messages
 
 
-
 class BookListView(View):
     def get(self, request):
         book = Books.objects.all().order_by('-id')
@@ -46,7 +45,7 @@ class BookUpdateView(View):
 
     def post(self, request, pk):
         book = get_object_or_404(Books, pk=pk)
-        form = BookForm(request.POST, instance=book)
+        form = BookForm(request.POST, request.FILES, instance=book)
         if form.is_valid():
             form.save()
             return redirect('books:book_detail', pk=pk)
@@ -91,6 +90,5 @@ class AddReviewView(LoginRequiredMixin, View):
             review.save()
             return redirect('books:book_detail', pk=pk)
         else:
-            messages.error(request, 'Failed to add review. Please check the form.')  # Add error message
-            # You might want to pass the form back to the template here if there's an error
+            messages.error(request, 'Failed to add review. Please check the form.')
             return render(request, 'add_review.html', {'books': books, 'add_review_form': add_review_form})

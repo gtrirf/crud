@@ -16,7 +16,7 @@ class RegisterView(View):
         return render(request, 'register.html', context=context)
 
     def post(self, request):
-        create_form = UserForm(data=request.POST)
+        create_form = UserForm(request.POST, request.FILES)
         if create_form.is_valid():
             create_form.save()
             return redirect('users:login')
